@@ -1,0 +1,26 @@
+{
+    "elastic": {
+        "url": "https://www.elastic.co/",
+        "expected_content": {
+            "Content-Type": "text/html",
+            "status_code": 200
+        },
+        "checking_frequency": {
+            "frequency": 10,
+            "unit": "sec"
+        },
+        "tags":["Login", "Try free"]
+    },
+    "medic": {
+        "url": "https://www.elastic.co/",
+        "expected_content": {
+            "Content-Type": "application/json",
+            "status_code": 200
+        },
+        "checking_frequency": {
+            "frequency": 20,
+            "unit": "sec"
+        },
+        "tags":["Login", "Try free"]
+    }
+}
