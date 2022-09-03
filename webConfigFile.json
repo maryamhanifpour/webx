@@ -1,19 +1,41 @@
 {
     "elastic": {
         "url": "https://www.elastic.co/",
-        "expected_content": {
+        "method": "GET",
+        "expected_response": {
             "Content-Type": "text/html",
             "status_code": 200
         },
         "checking_frequency": {
-            "frequency": 10,
+            "period": 10,
             "unit": "sec"
         },
-        "tags":["Login", "Try free"]
+        "tags": [
+            {
+                "id": 1,
+                "text": "Login",
+                "tag": "a"
+            },
+            {
+                "id": 2,
+                "text": "Try free",
+                "tag": "a"
+            },
+            {
+                "id": 3,
+                "text": "We're hiring",
+                "tag": "span"
+            },
+            {
+                "id": 4,
+                "text": "Free and Open Search: The Creators of Elasticsearch, ELK & Kibana | Elastic",
+                "tag": "title"
+            }
+        ]
     },
     "medic": {
         "url": "https://www.elastic.co/",
-        "expected_content": {
+        "expected_response": {
             "Content-Type": "application/json",
             "status_code": 200
         },
@@ -21,6 +43,27 @@
             "frequency": 20,
             "unit": "sec"
         },
-        "tags":["Login", "Try free"]
+        "tags": [
+            {
+                "id": 1,
+                "text": "Login",
+                "tag": "a"
+            },
+            {
+                "id": 2,
+                "text": "Try free",
+                "tag": "a"
+            },
+            {
+                "id": 3,
+                "text": "We're hiring",
+                "tag": "span"
+            },
+            {
+                "id": 4,
+                "text": "Free and Open Search: The Creators of Elasticsearch, ELK & Kibana | Elastic",
+                "tag": "title"
+            }
+        ]
     }
 }
