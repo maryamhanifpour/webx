@@ -33,11 +33,11 @@
             }
         ]
     },
-    "medic": {
-        "url": "https://www.elastic.co/",
+    "github": {
+        "url": "https://github.com/actions",
         "method": "GET",
         "expected_response": {
-            "Content-Type": "application/json",
+            "Content-Type": "text/html",
             "status_code": 200
         },
         "checking_frequency": {
@@ -63,14 +63,6 @@
         "checking_frequency": {
             "period": 60,
             "unit": "sec"
-        },
-        "tags": [
-            {
-                "id": 1,
-                "text": "Login",
-                "tag": "a"
-            }
-
-        ]
+        }
     }
 }
