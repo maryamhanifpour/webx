@@ -12,4 +12,5 @@ setup(
 
     packages=find_packages(where= 'src' ),
     package_dir={ '' : 'src' },
+    install_requires = ['bs4==0.0.1', 'requests==2.25.1']
 )
