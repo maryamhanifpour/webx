@@ -1,5 +1,7 @@
 import json
-from logs import mainLogger
+from logs import getConsoleLoger
+
+mainLogger = getConsoleLoger('readConfig')
 
 def readConfig(path):
     try:

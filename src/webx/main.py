@@ -5,7 +5,7 @@ import threading
 import readConfig
 import statusCheck
 from datetime import datetime
-from logs import mainLogger, getFileLogger
+from logs import getConsoleLoger, getFileLogger
 
 
 def logResult(configItem, Logger):
@@ -27,6 +27,7 @@ if __name__ == '__main__':
     logPath = args.logPath
     ConfigFilePath = args.ConfigFilePath
     ConfigFile = readConfig.readConfig(ConfigFilePath)
+    mainLogger = getConsoleLoger('main')
     if not ConfigFile:
         mainLogger.error('ConfigFile is missing or in wrong format')
         sys.exit()

@@ -12,13 +12,17 @@ loglevel = {
 
 
 #logging.basicConfig()
-mainLogger = logging.getLogger("webx")
-mainLogger.setLevel(level=loglevel.get(os.getenv('env'), loglevel.get('debug')))
-formatter = logging.Formatter('%(asctime)s | logger: %(name)s | line %(lineno)d  | %(funcName)s %(filename)s| %(levelname)s: %(message)s')
-stream_handler = logging.StreamHandler()
-stream_handler.setLevel(level=loglevel.get(os.getenv('env'), loglevel.get('debug')))
-stream_handler.setFormatter(formatter)
-mainLogger.addHandler(stream_handler)
+def getConsoleLoger(name):
+    mainLogger = logging.getLogger(name)
+    mainLogger.setLevel(level=loglevel.get(os.getenv('env'), loglevel.get('debug')))
+    formatter = logging.Formatter('%(asctime)s | logger: %(name)s | line %(lineno)d  | %(funcName)s %(filename)s| %(levelname)s: %(message)s')
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(level=loglevel.get(os.getenv('env'), loglevel.get('debug')))
+    stream_handler.setFormatter(formatter)
+    if (mainLogger.hasHandlers()):
+        mainLogger.handlers.clear()
+    mainLogger.addHandler(stream_handler)
+    return(mainLogger)
 
 def getFileLogger(logPath,name):
     fileLogger = logging.getLogger(name)
