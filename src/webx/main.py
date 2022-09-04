@@ -2,10 +2,12 @@ import sys
 import time
 import argparse
 import threading
-import readConfig
-import statusCheck
+from webx import readConfig
+#import readConfig
+from webx import statusCheck
+from pathlib import Path
 from datetime import datetime
-from logs import getConsoleLoger, getFileLogger
+from webx.logs import getConsoleLoger, getFileLogger
 
 
 def logResult(configItem, Logger):
@@ -18,8 +20,7 @@ def logResult(configItem, Logger):
 
 
 
-
-if __name__ == '__main__':
+def watch():
     parser = argparse.ArgumentParser()
     parser.add_argument('--logPath', required=False, type=str, default='.')
     parser.add_argument('--ConfigFilePath', required=True, type=str)
@@ -33,9 +34,14 @@ if __name__ == '__main__':
         sys.exit()
     threads = []
     for _key in ConfigFile.keys():
-        fLogger = getFileLogger('./{}.txt'.format(_key), _key)
+        dir_path = Path(logPath) / _key
+        fLogger = getFileLogger('{}.txt'.format(str(dir_path)), _key)
         thread = threading.Thread(target=logResult, args=(ConfigFile[_key], fLogger))
         threads.append(thread)
     for t in threads:
         t.start()
 
+
+
+if __name__ == '__main__':
+    watch()

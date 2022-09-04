@@ -2,6 +2,9 @@ from os import stat
 import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import ConnectionError
+from webx.logs import getConsoleLoger
+
+checkLogger = getConsoleLoger('statusCheck')
 
 def checkTags(soup, item):
     _check = soup.find_all(item.get('tag'), text=item.get('text'))
@@ -23,7 +26,7 @@ def check(configItem):
         responseCodeCheck = None
         responseTimeMilSec = None
     except Exception as e:
-        print(e)
+        checkLogger.error(e)
     else:  
         reachablity = 'pass'
         soup = BeautifulSoup(response.text, 'html.parser')

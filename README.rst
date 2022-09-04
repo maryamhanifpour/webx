@@ -5,9 +5,17 @@ monitoring tool for web site administrators for detecting problems on their site
 
 
 -------------------
+Creating a Source Distribution and Wheel:
+-------------------
+
+python setup.py sdist bdist_wheel
+
+-------------------
 install the package:
 -------------------
 
 Create a python 3 virtual environment 
 
-$pip install dist/array_maker-0.0.1.tar.gz
+pip install dist/webx-0.0.1.tar.gz 
+
+webx --ConfigFilePath  webConfigFile.json 

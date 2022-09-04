@@ -11,7 +11,6 @@ loglevel = {
 
 
 
-#logging.basicConfig()
 def getConsoleLoger(name):
     mainLogger = logging.getLogger(name)
     mainLogger.setLevel(level=loglevel.get(os.getenv('env'), loglevel.get('debug')))
@@ -29,6 +28,7 @@ def getFileLogger(logPath,name):
     fileLogger.setLevel(logging.INFO)
     fileFormatter = logging.Formatter('%(message)s')
     file_handler = logging.FileHandler(filename=logPath)
+    file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(fileFormatter)
     if (fileLogger.hasHandlers()):
         fileLogger.handlers.clear()

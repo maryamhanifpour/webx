@@ -1,5 +1,5 @@
 import json
-from logs import getConsoleLoger
+from webx.logs import getConsoleLoger
 
 mainLogger = getConsoleLoger('readConfig')
 
@@ -11,4 +11,5 @@ def readConfig(path):
         mainLogger.error(e)
         webConfigFile=None
     # todo: check schema of config file
+    # todo: convert frequency unit to seconds
     return(webConfigFile)
