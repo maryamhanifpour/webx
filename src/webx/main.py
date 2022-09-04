@@ -1,30 +1,20 @@
 import sys
+import time
 import argparse
+import threading
 import readConfig
 import statusCheck
-import schedule
-import threading
 from datetime import datetime
 from logs import mainLogger, getFileLogger
 
 
-_lock = threading.Lock()
-
-def f(configItem, _key):
-    schedule.every(configItem.get('checking_frequency').get('period')).seconds.do(logResult, configItem, _key)
-
+def logResult(configItem, Logger):
     while True:
-        _lock.acquire()
-        schedule.run_pending()
-        _lock.release()
-
-def logResult(configItem, _key):
-    print(_key, datetime.now(), "I'm running on thread %s" % threading.current_thread())
-    fileLogger = getFileLogger('./{}.txt'.format(_key))
-    _result = statusCheck.check(configItem)
-    _result['url'] = configItem.get('url')
-    _result['checkTime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    fileLogger.info(msg=_result)
+        _result = statusCheck.check(configItem)
+        _result['url'] = configItem.get('url')
+        _result['checkTime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        Logger.info(msg=_result)
+        time.sleep(configItem.get('checking_frequency').get('period'))
 
 
 
@@ -40,10 +30,11 @@ if __name__ == '__main__':
     if not ConfigFile:
         mainLogger.error('ConfigFile is missing or in wrong format')
         sys.exit()
-    # todo: map items to threads
     threads = []
     for _key in ConfigFile.keys():
-        thread = threading.Thread(target=f, args=(ConfigFile[_key], _key))
+        fLogger = getFileLogger('./{}.txt'.format(_key), _key)
+        thread = threading.Thread(target=logResult, args=(ConfigFile[_key], fLogger))
         threads.append(thread)
     for t in threads:
         t.start()
+
