@@ -5,6 +5,19 @@ monitoring tool for web site administrators for detecting problems on their site
 
 
 -------------------
+Unit tests:
+-------------------
+>>> $pytest -v
+
+>>> collected 3 items                                                                                                  
+>>> unit/test_reachablity_response.py::test_reachability_response[item0] PASSED                                  [ 33%]
+>>> unit/test_reachablity_response.py::test_reachability_response[item1] PASSED                                  [ 66%]
+>>> unit/test_reachablity_response.py::test_not_reachability_response[item0] PASSED                              [100%]
+
+
+
+
+-------------------
 Creating a Source Distribution and Wheel:
 -------------------
 

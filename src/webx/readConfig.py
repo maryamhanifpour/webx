@@ -10,6 +10,6 @@ def readConfig(path):
     except Exception as e:
         mainLogger.error(e)
         webConfigFile=None
-    # todo: check schema of config file
+    # todo: check schema of config file, url must be there, frquency should be in sec, min or day
     # todo: convert frequency unit to seconds
     return(webConfigFile)

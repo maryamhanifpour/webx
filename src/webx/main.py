@@ -3,7 +3,6 @@ import time
 import argparse
 import threading
 from webx import readConfig
-#import readConfig
 from webx import statusCheck
 from pathlib import Path
 from datetime import datetime

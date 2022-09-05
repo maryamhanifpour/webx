@@ -1,7 +1,6 @@
-from os import stat
 import requests
 from bs4 import BeautifulSoup
-from requests.exceptions import ConnectionError
+from requests.exceptions import ConnectionError, MissingSchema
 from webx.logs import getConsoleLoger
 
 checkLogger = getConsoleLoger('statusCheck')
@@ -16,11 +15,16 @@ def check(configItem):
     url = configItem.get('url')
     method = configItem.get('method')
     headers = configItem.get('headers')
-    tags = configItem.get('tags')
+    tags = configItem.get('tags') or []
     expected_response = configItem.get('expected_response').get('status_code')
     try:
         response = requests.request(method=method, url=url, headers=headers)
     except ConnectionError:
+        reachablity = 'fail'
+        responseTagCheck = []
+        responseCodeCheck = None
+        responseTimeMilSec = None
+    except MissingSchema:
         reachablity = 'fail'
         responseTagCheck = []
         responseCodeCheck = None
