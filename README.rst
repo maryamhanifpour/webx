@@ -7,7 +7,14 @@ webx: a program that monitors web sites and reports their availability. This too
 monitoring tool for web site administrators for detecting problems on their sites.
 
 the list http websites to monitore should be provided in a config file.
+Each site to monitore should have a unique key, the value of the key is the metadata used to monitore.
+At the momen there is no config file schema validation implemented.
 
+webx also measures response time in miliseconds. A note on response time:
+
+Response time depends on network bandwidth and location of the server sending the request. These two factors are
+ignored here. In reality one should measure response time from different geo location or regions and consolidate logs
+in one datalake location. 
 
 ====================================================
 
@@ -41,13 +48,14 @@ or to write result to /tmp folder
 webx --ConfigFilePath  webConfigFile.json --logPath /tmp
 
 
+
+
 *************
-ConfigFilePath:
+Unit tests:
 *************
 
--------------------
-Unit tests:
--------------------
+There is only one sample unit test to check if a site is not reachable the output is 'faile'
+otherwise it is 'pass'
 >>> $pytest -v
 
 >>> collected 3 items                                                                                                  
@@ -56,28 +64,9 @@ Unit tests:
 >>> unit/test_reachablity_response.py::test_not_reachability_response[item0] PASSED                              [100%]
 
 
-
-
--------------------
-Creating a Source Distribution and Wheel:
--------------------
-
-python setup.py sdist bdist_wheel
-
--------------------
-install the package:
--------------------
-
-Create a python 3 virtual environment 
-
-pip install dist/webx-0.0.1.tar.gz 
-
-webx --ConfigFilePath  webConfigFile.json 
-
-or to write result to /tmp folder
-
-webx --ConfigFilePath  webConfigFile.json --logPath /tmp
-
+*************
+visualization:
+*************
 
 In case you want to visualize and compare response latency, I have provided a small module yet not packaged it as a part of this solution.
 The module is meant to demonstrate a sample to do simple visualization on a small scale data. In a production system
