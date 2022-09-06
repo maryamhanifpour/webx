@@ -20,30 +20,30 @@ def check(configItem):
     try:
         response = requests.request(method=method, url=url, headers=headers)
     except ConnectionError:
-        reachablity = 'fail'
+        reachablity = "fail"
         responseTagCheck = []
         responseCodeCheck = None
         responseTimeMilSec = None
     except MissingSchema:
-        reachablity = 'fail'
+        reachablity = "fail"
         responseTagCheck = []
         responseCodeCheck = None
         responseTimeMilSec = None
     except Exception as e:
         checkLogger.error(e)
     else:  
-        reachablity = 'pass'
+        reachablity = "pass"
         soup = BeautifulSoup(response.text, 'html.parser')
         if len(tags) > 0:
             responseTagCheck = list(map(lambda i:checkTags(soup, tags[i]), range(0, len(tags))))
         else:
             responseTagCheck = []
-        responseCodeCheck = 'pass' if response.status_code == expected_response else 'fail'
+        responseCodeCheck = "pass" if response.status_code == expected_response else "fail"
         responseTimeMilSec = response.elapsed.microseconds/1000
     finally:
         _result = {}
-        _result['reachablity'] = reachablity
-        _result['responseTagCheck'] = responseTagCheck
-        _result['responseCodeCheck'] = responseCodeCheck
-        _result['responseTimeMilSec'] = responseTimeMilSec
+        _result["reachablity"] = reachablity
+        _result["responseTagCheck"] = responseTagCheck
+        _result["responseCodeCheck"] = responseCodeCheck
+        _result["responseTimeMilSec"] = responseTimeMilSec
     return(_result)

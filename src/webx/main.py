@@ -1,3 +1,4 @@
+from logging import exception
 import sys
 import time
 import argparse
@@ -8,13 +9,18 @@ from pathlib import Path
 from datetime import datetime
 from webx.logs import getConsoleLoger, getFileLogger
 
+mainLogger = getConsoleLoger('main')
 
 def logResult(configItem, Logger):
     while True:
         _result = statusCheck.check(configItem)
         _result['url'] = configItem.get('url')
         _result['checkTime'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        Logger.info(msg=_result)
+        try:
+            Logger.info(msg=_result)
+        except Exception as e:
+            mainLogger.error(e)
+            mainLogger.error('problem writing log to {}'.format(Logger.hanlers[0].baseFilename))
         time.sleep(configItem.get('checking_frequency').get('period'))
 
 
@@ -27,7 +33,6 @@ def watch():
     logPath = args.logPath
     ConfigFilePath = args.ConfigFilePath
     ConfigFile = readConfig.readConfig(ConfigFilePath)
-    mainLogger = getConsoleLoger('main')
     if not ConfigFile:
         mainLogger.error('ConfigFile is missing or in wrong format')
         sys.exit()
