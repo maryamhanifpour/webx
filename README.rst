@@ -1,8 +1,49 @@
+#############
+**webx** repository structure:
+#############
+
 ====================================================
 webx: a program that monitors web sites and reports their availability. This tool is intended as a
 monitoring tool for web site administrators for detecting problems on their sites.
+
+the list http websites to monitore should be provided in a config file.
+
+
 ====================================================
 
+
+*************
+requirements and installation:
+*************
+
+**webx** uses python3, and there is a command line interface for it when installed.
+To install **webx** it is recommended to create virtual environment first.
+
+
+-------------------
+Creating a Source Distribution and Wheel:
+-------------------
+
+python setup.py sdist bdist_wheel
+
+-------------------
+install the package:
+-------------------
+
+Create a python 3 virtual environment 
+
+pip install dist/webx-0.0.1.tar.gz 
+
+webx --ConfigFilePath  webConfigFile.json 
+
+or to write result to /tmp folder
+
+webx --ConfigFilePath  webConfigFile.json --logPath /tmp
+
+
+*************
+ConfigFilePath:
+*************
 
 -------------------
 Unit tests:
